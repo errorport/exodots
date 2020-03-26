@@ -102,3 +102,8 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
+# nnn specific entries
+export EDITOR=vim
+export VISUAL=vim
+export PAGER=less
+export NNN_USE_EDITOR=1
