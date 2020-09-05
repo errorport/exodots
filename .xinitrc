@@ -47,7 +47,7 @@ fi
 
 if [ -n "$failsafe" ]; then
  # exec xterm -geometry 80x66+0+0 -name login
- exec `xset dpms 20 20 20`
+ exec `xset dpms 600 600 600`
  exec /home/bencsikg/dev/exodwm/dwm
 else
  exec $command

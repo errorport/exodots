@@ -103,6 +103,7 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 # nnn specific entries
+alias nnn="nnn -d"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less

@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tidalcycles/vim-tidal'
 Plug 'luisjure/csound-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'cespare/vim-toml'
 call plug#end()
 
 " line number
@@ -14,9 +15,9 @@ call plug#end()
 :set sr
 
 " soft tab
-:set tabstop=2
-:set softtabstop=2
-:set shiftwidth=2
+:set tabstop=4
+:set softtabstop=4
+:set shiftwidth=4
 :set expandtab
 
 :colorscheme ron
@@ -29,11 +30,16 @@ call plug#end()
 
 " ruler highlight
 :set colorcolumn=100
-:highlight ColorColumn ctermbg=yellow
+:highlight ColorColumn ctermbg=yellow ctermfg=black
 
 " brackets
 :hi MatchParen  cterm=bold ctermfg=black ctermbg=blue
 :set shm=a
+
+" highlight unwanted whitespaces
+:hi ExtraWhitespace ctermbg=red guibg=red
+:autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
 
 au BufEnter,BufWinEnter,BufNewFile,BufRead *.sc,*.scd set filetype=supercollider
 au Filetype supercollider packadd scvim
@@ -49,4 +55,5 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
+:set pastetoggle=<F12>
 
