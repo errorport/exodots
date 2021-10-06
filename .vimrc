@@ -9,7 +9,7 @@ call plug#end()
 :set number
 :set numberwidth=3
 
-" text wrapping	
+" text wrapping
 :set wrap
 " shift round
 :set sr
@@ -18,7 +18,7 @@ call plug#end()
 :set tabstop=4
 :set softtabstop=4
 :set shiftwidth=4
-:set expandtab
+:set noexpandtab
 
 :colorscheme ron
 
@@ -40,6 +40,14 @@ call plug#end()
 :hi ExtraWhitespace ctermbg=red guibg=red
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
+:hi ExtraSpaces ctermbg=red guibg=red
+:autocmd ColorScheme * highlight ExtraSpaces ctermbg=red guibg=red
+:match ExtraSpaces /\s\+ /
+
+:set listchars=eol:•,tab:·\ ,trail:\ ,extends:>,precedes:<
+:hi eol ctermbg=black ctermfg=darkgray
+:hi SpecialKey ctermbg=black ctermfg=darkgray
+:hi NonText ctermbg=black ctermfg=darkgray
 
 au BufEnter,BufWinEnter,BufNewFile,BufRead *.sc,*.scd set filetype=supercollider
 au Filetype supercollider packadd scvim
