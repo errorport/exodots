@@ -24,8 +24,8 @@ call plug#end()
 
 " search highlight
 :set hlsearch
-:hi Search      cterm=NONE ctermfg=black ctermbg=green
-:hi CursorLine  cterm=NONE ctermfg=black ctermbg=yellow
+:hi Search		cterm=NONE ctermfg=black ctermbg=green
+:hi CursorLine	cterm=NONE ctermfg=black ctermbg=yellow
 :set cursorline
 
 " ruler highlight
@@ -33,16 +33,13 @@ call plug#end()
 :highlight ColorColumn ctermbg=yellow ctermfg=black
 
 " brackets
-:hi MatchParen  cterm=bold ctermfg=black ctermbg=blue
+:hi MatchParen	cterm=bold ctermfg=black ctermbg=blue
 :set shm=a
 
 " highlight unwanted whitespaces
-:hi ExtraWhitespace ctermbg=red guibg=red
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhiteSpace /\s\+ \|\s\+$/
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+$/
-:hi ExtraSpaces ctermbg=red guibg=red
-:autocmd ColorScheme * highlight ExtraSpaces ctermbg=red guibg=red
-:match ExtraSpaces /\s\+ /
 
 :set listchars=eol:•,tab:·\ ,trail:\ ,extends:>,precedes:<
 :hi eol ctermbg=black ctermfg=darkgray
@@ -58,10 +55,11 @@ let &t_EI .= "\<Esc>[?2004l"
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
+	set pastetoggle=<Esc>[201~
+	set paste
+	return ""
 endfunction
 
 :set pastetoggle=<F12>
 
+:set list
