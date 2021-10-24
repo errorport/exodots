@@ -3,6 +3,7 @@ Plug 'tidalcycles/vim-tidal'
 Plug 'luisjure/csound-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'cespare/vim-toml'
+Plug 'simonhicks/foxdot.vim'
 call plug#end()
 
 " line number
@@ -51,6 +52,9 @@ au Filetype supercollider packadd scvim
 
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
+
+let g:sclang_executable_path = "/usr/bin/sclang"
+let g:python_executable_path = "/usr/bin/python3"
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
