@@ -83,9 +83,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+#	export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#	export EDITOR='mvim'
 # fi
 
 # Compilation flags
@@ -103,8 +103,21 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 # nnn specific entries
-alias nnn="nnn -d"
+alias nnn="nnn -dc"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
 export NNN_USE_EDITOR=1
+
+# OPAM configuration
+. ${HOME}/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '${HOME}/google-cloud-sdk/path.zsh.inc' ]; then . '${HOME}/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '${HOME}/google-cloud-sdk/completion.zsh.inc' ]; then . '${HOME}/google-cloud-sdk/completion.zsh.inc'; fi
+
+export RACK_DIR=${HOME}/dev/Rack
+
+export _JAVA_AWT_WM_NONREPARENTING=1
