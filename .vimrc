@@ -1,9 +1,10 @@
 call plug#begin('~/.vim/plugged')
-Plug 'tidalcycles/vim-tidal'
-Plug 'luisjure/csound-vim'
+"Plug 'tidalcycles/vim-tidal'
+"Plug 'luisjure/csound-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'cespare/vim-toml'
-Plug 'simonhicks/foxdot.vim'
+"Plug 'simonhicks/foxdot.vim'
+Plug 'errorport/errordot.vim'
 call plug#end()
 
 " line number
@@ -25,20 +26,22 @@ call plug#end()
 
 " search highlight
 :set hlsearch
-:hi Search		cterm=NONE ctermfg=black ctermbg=green
+:hi Search		cterm=NONE ctermfg=black ctermbg=white
 :hi CursorLine	cterm=NONE ctermfg=black ctermbg=yellow
+:hi CursorColumn	cterm=NONE ctermfg=black ctermbg=darkblue
+:hi CursorLineNR	cterm=NONE ctermfg=yellow ctermbg=magenta
 :set cursorline
 
 " ruler highlight
-:set colorcolumn=100
+:set colorcolumn=120
 :highlight ColorColumn ctermbg=yellow ctermfg=black
 
 " brackets
-:hi MatchParen	cterm=bold ctermfg=black ctermbg=blue
+:hi MatchParen	cterm=bold ctermfg=yellow ctermbg=magenta
 :set shm=a
 
 " highlight unwanted whitespaces
-:highlight ExtraWhitespace ctermbg=red guibg=red
+:highlight ExtraWhitespace ctermbg=darkblue guibg=darkblue
 :match ExtraWhiteSpace /\s\+ \|\s\+$/
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
