@@ -26,7 +26,7 @@ call plug#end()
 
 " search highlight
 :set hlsearch
-:hi Search		cterm=NONE ctermfg=black ctermbg=white
+:hi Search		cterm=NONE ctermfg=black ctermbg=green
 :hi CursorLine	cterm=NONE ctermfg=black ctermbg=yellow
 :hi CursorColumn	cterm=NONE ctermfg=black ctermbg=darkblue
 :hi CursorLineNR	cterm=NONE ctermfg=yellow ctermbg=magenta
@@ -43,7 +43,7 @@ call plug#end()
 :set shm=a
 
 " highlight unwanted whitespaces
-:highlight ExtraWhitespace ctermbg=darkblue guibg=darkblue
+:hi ExtraWhitespace ctermbg=darkblue guibg=darkblue
 :match ExtraWhiteSpace /\s\+ \|\s\+$/
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
@@ -54,37 +54,43 @@ call plug#end()
 
 function GetMode ()
     if mode() == 'n'
-        hi StatusLine ctermfg=darkgrey
+        :hi StatusLine ctermbg=black ctermfg=darkgrey
         :hi ModeHl ctermbg=black ctermfg=magenta
+        :hi LineNr ctermfg=yellow
         return " · "
     endif
     if mode() == 'i'
-        hi StatusLine ctermfg=green
+        :hi StatusLine ctermbg=green ctermfg=black
+        :hi LineNr ctermfg=green
         :hi ModeHl ctermbg=green ctermfg=black
         return "INS"
     endif
     if mode() == 'R'
-        hi StatusLine ctermfg=red
+        :hi StatusLine ctermbg=red ctermfg=black
+        :hi LineNr ctermfg=red
         :hi ModeHl ctermbg=red ctermfg=black
         return "RPL"
     endif
     if mode() == 'v'
-        hi StatusLine ctermfg=blue
+        :hi StatusLine ctermbg=blue ctermfg=black
+        :hi LineNr ctermfg=blue
         :hi ModeHl ctermbg=blue ctermfg=black
         return "VIS"
     endif
     if mode() == 'V'
-        hi StatusLine ctermfg=blue
+        :hi StatusLine ctermbg=blue ctermfg=black
+        :hi LineNr ctermfg=blue
         :hi ModeHl ctermbg=blue ctermfg=black
         return "VIS"
     endif
     if mode() == '^V'
-        hi StatusLine ctermfg=blue
+        :hi StatusLine ctermbg=blue ctermfg=black
+        :hi LineNr ctermfg=blue
         :hi ModeHl ctermbg=blue ctermfg=black
         return "BLV"
     endif
     if mode() == 'c'
-        hi StatusLine ctermfg=black
+        :hi StatusLine ctermfg=darkgrey ctermbg=black
         :hi ModeHl ctermbg=black ctermfg=darkgrey
         return "CON"
     endif
@@ -92,12 +98,10 @@ function GetMode ()
     return mode()
 endfunction
 
-:hi StatusLine ctermbg=black ctermfg=darkgrey cterm=NONE
+:hi StatusLine ctermbg=black ctermfg=darkgray cterm=NONE
 :hi ModeHl ctermbg=black ctermfg=yellow cterm=NONE
-:au InsertEnter * hi StatusLine ctermfg=green
-:au InsertLeave * hi StatusLine ctermfg=yellow
 :set laststatus=2
-:set statusline=%#ModeHl#\ %{GetMode()}\ %*%#FileHl#\ %t\ %y\ %M\ %*%=\ %4l:%4c\ \│\ %P\ 
+:set statusline=%#ModeHl#\ %{GetMode()}\ %*%#FileHl#\ %t\ %y\ %M\ %*%=\│\ \ %4l:%4c\ \│\ %P\ 
 :set noshowmode
 
 au BufEnter,BufWinEnter,BufNewFile,BufRead *.sc,*.scd set filetype=supercollider
