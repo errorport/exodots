@@ -20,18 +20,18 @@ call plug#end()
 :set tabstop=4
 :set softtabstop=4
 :set shiftwidth=4
-:set noexpandtab
+:set expandtab
 
 :colorscheme ron
 
 " search highlight
 :set hlsearch
-:hi Search		cterm=NONE ctermfg=black ctermbg=green
-:hi CursorLine	cterm=NONE ctermfg=black ctermbg=yellow
-:hi CursorColumn	cterm=NONE ctermfg=black ctermbg=darkblue
-:hi CursorLineNR	cterm=NONE ctermfg=yellow ctermbg=magenta
-:hi ModeHl ctermbg=black ctermfg=yellow cterm=NONE
-:hi FileHl ctermbg=black ctermfg=darkgrey cterm=NONE
+:hi Search          cterm=NONE ctermfg=black ctermbg=green
+:hi CursorLine      cterm=NONE ctermfg=black ctermbg=yellow
+:hi CursorColumn    cterm=NONE ctermfg=black ctermbg=darkblue
+:hi CursorLineNR    cterm=NONE ctermfg=yellow ctermbg=magenta
+:hi ModeHl          ctermbg=black ctermfg=darkgrey cterm=NONE
+:hi FileHl          ctermbg=black ctermfg=cyan cterm=bold
 :set cursorline
 
 " ruler highlight
@@ -39,12 +39,13 @@ call plug#end()
 :highlight ColorColumn ctermbg=yellow ctermfg=black
 
 " brackets
-:hi MatchParen	cterm=bold ctermfg=yellow ctermbg=magenta
+:hi MatchParen      cterm=bold ctermfg=yellow ctermbg=magenta
 :set shm=a
 
 " highlight unwanted whitespaces
-:hi ExtraWhitespace ctermbg=darkblue guibg=darkblue
-:match ExtraWhiteSpace /\s\+ \|\s\+$/
+:hi ExtraWhitespace ctermbg=red guibg=red
+":match ExtraWhiteSpace /\s\+ \|\s\+$/
+:match ExtraWhiteSpace /\s\+$/
 :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 :set listchars=eol:•,tab:·\ ,trail:\ ,extends:>,precedes:<
@@ -54,54 +55,65 @@ call plug#end()
 
 function GetMode ()
     if mode() == 'n'
-        :hi StatusLine ctermbg=black ctermfg=darkgrey
         :hi ModeHl ctermbg=black ctermfg=magenta
         :hi LineNr ctermfg=yellow
-        return " · "
+        :hi StatusLine ctermbg=black ctermfg=darkgrey
+        :redrawstatus
+        return " • "
     endif
     if mode() == 'i'
-        :hi StatusLine ctermbg=green ctermfg=black
         :hi LineNr ctermfg=green
         :hi ModeHl ctermbg=green ctermfg=black
+        :hi StatusLine ctermbg=green ctermfg=black
+        :redrawstatus
         return "INS"
     endif
     if mode() == 'R'
-        :hi StatusLine ctermbg=red ctermfg=black
         :hi LineNr ctermfg=red
         :hi ModeHl ctermbg=red ctermfg=black
+        :hi StatusLine ctermbg=red ctermfg=black
+        :redrawstatus
         return "RPL"
     endif
     if mode() == 'v'
-        :hi StatusLine ctermbg=blue ctermfg=black
         :hi LineNr ctermfg=blue
         :hi ModeHl ctermbg=blue ctermfg=black
+        :hi StatusLine ctermbg=blue ctermfg=black
+        :redrawstatus
         return "VIS"
     endif
     if mode() == 'V'
-        :hi StatusLine ctermbg=blue ctermfg=black
         :hi LineNr ctermfg=blue
         :hi ModeHl ctermbg=blue ctermfg=black
+        :hi StatusLine ctermbg=blue ctermfg=black
+        :redrawstatus
         return "VIS"
     endif
     if mode() == '^V'
-        :hi StatusLine ctermbg=blue ctermfg=black
         :hi LineNr ctermfg=blue
         :hi ModeHl ctermbg=blue ctermfg=black
+        :hi StatusLine ctermbg=blue ctermfg=black
+        :redrawstatus
         return "BLV"
     endif
     if mode() == 'c'
-        :hi StatusLine ctermfg=darkgrey ctermbg=black
+        :hi LineNr ctermfg=darkgrey
         :hi ModeHl ctermbg=black ctermfg=darkgrey
+        :hi StatusLine ctermfg=darkgrey ctermbg=black
+        :redrawstatus
         return "CON"
     endif
 
+    :redrawstatus
     return mode()
 endfunction
 
 :hi StatusLine ctermbg=black ctermfg=darkgray cterm=NONE
-:hi ModeHl ctermbg=black ctermfg=yellow cterm=NONE
 :set laststatus=2
-:set statusline=%#ModeHl#\ %{GetMode()}\ %*%#FileHl#\ %t\ %y\ %M\ %*%=\│\ \ %4l:%4c\ \│\ %P\ 
+:au InsertEnter call GetMode()
+:au InsertLeave call GetMode()
+:au CursorMoved call GetMode()
+:set statusline=%#ModeHl#\ %{GetMode()}\ %*%#FileHl#\ %t\ %y\ %M\ %*%=\ \ %4l:%4c\ \│\ %P\ 
 :set noshowmode
 
 au BufEnter,BufWinEnter,BufNewFile,BufRead *.sc,*.scd set filetype=supercollider
@@ -124,3 +136,4 @@ endfunction
 :set pastetoggle=<F12>
 
 :set list
+
