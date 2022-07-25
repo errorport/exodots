@@ -31,7 +31,7 @@ call plug#end()
 :hi CursorColumn    cterm=NONE ctermfg=black ctermbg=darkblue
 :hi CursorLineNR    cterm=NONE ctermfg=yellow ctermbg=magenta
 :hi ModeHl          ctermbg=black ctermfg=darkgrey cterm=NONE
-:hi FileHl          ctermbg=black ctermfg=cyan cterm=bold
+:hi FileHl          ctermbg=black ctermfg=magenta cterm=bold
 :set cursorline
 
 " ruler highlight
