@@ -22,7 +22,7 @@ call plug#end()
 :set shiftwidth=4
 :set expandtab
 
-:colorscheme ron
+:colorscheme exo_color
 
 " search highlight
 :set hlsearch
