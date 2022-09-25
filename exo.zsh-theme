@@ -34,6 +34,8 @@
 
 CURRENT_BG='NONE'
 
+CUSTOM_YELLOW='11'
+
 case ${SOLARIZED_THEME:-dark} in
     light) CURRENT_FG='white';;
     *)     CURRENT_FG='black';;
@@ -89,7 +91,7 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment blue black "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment blue black "%(!.%{%F{CUSTOM_YELLOW}%}.)%n@%m"
   fi
 }
 
@@ -111,7 +113,7 @@ prompt_git() {
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black
+      prompt_segment ${CUSTOM_YELLOW} black
     else
       prompt_segment green $CURRENT_FG
     fi
@@ -155,10 +157,10 @@ prompt_bzr() {
     status_all=$(echo -n "$bzr_status" | head -n1 | wc -m)
     revision=$(bzr log -r-1 --log-format line | cut -d: -f1)
     if [[ $status_mod -gt 0 ]] ; then
-      prompt_segment yellow black "bzr@$revision ✚"
+      prompt_segment ${CUSTOM_YELLOW} black "bzr@$revision ✚"
     else
       if [[ $status_all -gt 0 ]] ; then
-        prompt_segment yellow black "bzr@$revision"
+        prompt_segment ${CUSTOM_YELLOW} black "bzr@$revision"
       else
         prompt_segment green black "bzr@$revision"
       fi
@@ -177,7 +179,7 @@ prompt_hg() {
         st='±'
       elif [[ -n $(hg prompt "{status|modified}") ]]; then
         # if any modification
-        prompt_segment yellow black
+        prompt_segment ${CUSTOM_YELLOW} black
         st='±'
       else
         # if working copy is clean
@@ -192,7 +194,7 @@ prompt_hg() {
         prompt_segment red black
         st='±'
       elif `hg st | grep -q "^[MA]"`; then
-        prompt_segment yellow black
+        prompt_segment ${CUSTOM_YELLOW} black
         st='±'
       else
         prompt_segment green $CURRENT_FG
@@ -223,21 +225,21 @@ prompt_status() {
   local -a symbols
 
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+[[ $UID -eq 0 ]] && symbols+="%{%F{CUSTOM_YELLOW}%}⚡"
+[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+[[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
 #AWS Profile:
 # - display current AWS_PROFILE name
-# - displays yellow on red if profile name contains 'production' or
+# - displays CUSTOM_YELLOW on red if profile name contains 'production' or
 #   ends in '-prod'
 # - displays black on green otherwise
 prompt_aws() {
   [[ -z "$AWS_PROFILE" ]] && return
   case "$AWS_PROFILE" in
-    *-prod|*production*) prompt_segment red yellow  "AWS: $AWS_PROFILE" ;;
+    *-prod|*production*) prompt_segment red ${CUSTOM_YELLOW}  "AWS: $AWS_PROFILE" ;;
     *) prompt_segment green black "AWS: $AWS_PROFILE" ;;
   esac
 }
