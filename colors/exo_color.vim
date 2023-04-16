@@ -8,9 +8,9 @@ if exists("syntax_on")
   syntax reset
 endif
 let g:colors_name = "exo"
-hi Normal		guifg=cyan	guibg=black
+hi Normal		guifg=white	guibg=black
 hi NonText		guifg=yellow guibg=darkgrey
-hi comment		guifg=green
+hi comment		guifg=cyan
 hi constant		guifg=cyan	gui=bold
 hi identifier	guifg=cyan	gui=NONE
 hi statement	guifg=lightblue	gui=NONE
@@ -24,8 +24,8 @@ hi Todo			guifg=Black	guibg=orange
 hi Cursor		guibg=#60a060 guifg=#00ff00
 hi Search		guibg=darkgray guifg=black gui=bold
 hi IncSearch	gui=NONE guibg=steelblue
-hi LineNr		guifg=darkgrey
-hi title		guifg=darkgrey
+hi LineNr		guifg=blue ctermfg=blue
+hi title		guifg=blue
 hi ShowMarksHL ctermfg=cyan ctermbg=lightblue cterm=bold guifg=yellow guibg=black  gui=bold
 hi StatusLineNC	gui=NONE guifg=lightblue guibg=darkblue
 hi StatusLine	gui=bold	guifg=cyan	guibg=blue

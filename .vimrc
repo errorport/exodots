@@ -29,7 +29,7 @@ call plug#end()
 :hi Search          cterm=NONE ctermfg=black ctermbg=green
 :hi CursorLine      cterm=NONE ctermfg=black ctermbg=yellow
 :hi CursorColumn    cterm=NONE ctermfg=black ctermbg=darkblue
-:hi CursorLineNR    cterm=NONE ctermfg=yellow ctermbg=magenta
+:hi CursorLineNR    cterm=NONE ctermfg=cyan ctermbg=darkblue
 :hi ModeHl          ctermbg=black ctermfg=darkgrey cterm=NONE
 :hi FileHl          ctermbg=black ctermfg=magenta cterm=bold
 :set cursorline
