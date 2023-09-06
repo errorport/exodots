@@ -35,8 +35,8 @@ call plug#end()
 :set cursorline
 
 " ruler highlight
-:set colorcolumn=120
-:highlight ColorColumn ctermbg=yellow ctermfg=black
+":set colorcolumn=120
+":highlight ColorColumn ctermbg=yellow ctermfg=black
 
 " brackets
 :hi MatchParen      cterm=bold ctermfg=yellow ctermbg=magenta
@@ -46,94 +46,83 @@ call plug#end()
 :hi ExtraWhitespace ctermbg=red guibg=red
 ":match ExtraWhiteSpace /\s\+ \|\s\+$/
 :match ExtraWhiteSpace /\s\+$/
-:autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 :set listchars=eol:•,tab:·\ ,trail:\ ,extends:>,precedes:<
 :hi eol ctermbg=black ctermfg=darkgray
 :hi SpecialKey ctermbg=black ctermfg=darkgray
 :hi NonText ctermbg=black ctermfg=darkgray
 
-function GetMode ()
-    if mode() == 'n'
-        :hi ModeHl ctermbg=black ctermfg=magenta
-        :hi LineNr ctermfg=yellow
-        :hi StatusLine ctermbg=black ctermfg=darkgrey
-        :redrawstatus
+:hi LineNr ctermfg=darkblue
+:hi StatusLine ctermbg=black ctermfg=darkgray cterm=NONE
+:set laststatus=2
+:set noshowmode
+:set updatetime=100
+
+function! ModeSetter()
+    let mode = mode()
+    "echom "Mode:" mode
+    if mode == 'n'
+        hi LineNr ctermfg=darkblue
+        hi ModeHl ctermbg=black ctermfg=magenta
+        hi StatusLine ctermbg=black ctermfg=darkgrey
+    elseif mode == 'i'
+        hi LineNr ctermfg=green
+        hi ModeHl ctermbg=green ctermfg=black
+        hi StatusLine ctermbg=green ctermfg=black
+    elseif mode == 'R'
+        hi LineNr ctermfg=red
+        hi ModeHl ctermbg=red ctermfg=black
+        hi StatusLine ctermbg=red ctermfg=black
+    elseif mode == 'v'
+        hi LineNr ctermfg=blue
+        hi ModeHl ctermbg=blue ctermfg=black
+        hi StatusLine ctermbg=blue ctermfg=black
+    elseif mode == 'V'
+        hi LineNr ctermfg=blue
+        hi ModeHl ctermbg=blue ctermfg=black
+        hi StatusLine ctermbg=blue ctermfg=black
+    elseif mode == '^V'
+        hi LineNr ctermfg=blue
+        hi ModeHl ctermbg=blue ctermfg=black
+        hi StatusLine ctermbg=blue ctermfg=black
+    elseif mode == 'c'
+        hi LineNr ctermfg=darkgrey
+        hi ModeHl ctermbg=black ctermfg=darkgrey
+        hi StatusLine ctermfg=darkgrey ctermbg=black
+    endif
+    ":redraw!
+    ":redrawstatus!
+    return ""
+endfunction!
+
+function! GetModeTxt()
+    let mode = mode()
+    "echom "Mode:" mode
+    if mode == 'n'
         return " • "
-    endif
-    if mode() == 'i'
-        :hi LineNr ctermfg=green
-        :hi ModeHl ctermbg=green ctermfg=black
-        :hi StatusLine ctermbg=green ctermfg=black
-        :redrawstatus
+    elseif mode == 'i'
         return "INS"
-    endif
-    if mode() == 'R'
-        :hi LineNr ctermfg=red
-        :hi ModeHl ctermbg=red ctermfg=black
-        :hi StatusLine ctermbg=red ctermfg=black
-        :redrawstatus
+    elseif mode == 'R'
         return "RPL"
-    endif
-    if mode() == 'v'
-        :hi LineNr ctermfg=blue
-        :hi ModeHl ctermbg=blue ctermfg=black
-        :hi StatusLine ctermbg=blue ctermfg=black
-        :redrawstatus
+    elseif mode == 'v'
         return "VIS"
-    endif
-    if mode() == 'V'
-        :hi LineNr ctermfg=blue
-        :hi ModeHl ctermbg=blue ctermfg=black
-        :hi StatusLine ctermbg=blue ctermfg=black
-        :redrawstatus
+    elseif mode() == 'V'
         return "VIS"
-    endif
-    if mode() == '^V'
-        :hi LineNr ctermfg=blue
-        :hi ModeHl ctermbg=blue ctermfg=black
-        :hi StatusLine ctermbg=blue ctermfg=black
-        :redrawstatus
+    elseif mode == '^V'
         return "BLV"
-    endif
-    if mode() == 'c'
-        :hi LineNr ctermfg=darkgrey
-        :hi ModeHl ctermbg=black ctermfg=darkgrey
-        :hi StatusLine ctermfg=darkgrey ctermbg=black
-        :redrawstatus
+    elseif mode == 'c'
         return "CON"
     endif
-
-    :redrawstatus
     return mode()
 endfunction
 
-:hi StatusLine ctermbg=black ctermfg=darkgray cterm=NONE
-:set laststatus=2
-:au InsertEnter call GetMode()
-:au InsertLeave call GetMode()
-:au CursorMoved call GetMode()
-:set statusline=%#ModeHl#\ %{GetMode()}\ %*%#FileHl#\ %t\ %y\ %M\ %*%=\ \ %4l:%4c\ \│\ %P\ 
-:set noshowmode
+" autocommands
+augroup colorstyle
+    :autocmd!
+    :autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+    :autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+augroup end
 
-au BufEnter,BufWinEnter,BufNewFile,BufRead *.sc,*.scd set filetype=supercollider
-au Filetype supercollider packadd scvim
+:set statusline=%{ModeSetter()}%#ModeHl#\ %{GetModeTxt()}\ %*%#FileHl#\ %t\ %y\ %M\ %*%=\ \ %4l:%4c\ \│\ %P\ 
 
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
-
-let g:sclang_executable_path = "/usr/bin/sclang"
-let g:python_executable_path = "/usr/bin/python3"
-
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-
-function! XTermPasteBegin()
-	set pastetoggle=<Esc>[201~
-	set paste
-	return ""
-endfunction
-
-:set pastetoggle=<F12>
-
-:set list
 

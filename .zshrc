@@ -123,3 +123,5 @@ if [ -f '${HOME}/google-cloud-sdk/completion.zsh.inc' ]; then . '${HOME}/google-
 export RACK_DIR=${HOME}/dev/Rack
 
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+alias vim=nvim
